@@ -41,6 +41,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        $user = Auth::user();
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
@@ -48,10 +49,11 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         try {
-            Http::post('http://127.0.0.1:8001/auth-logout');
-        } catch (\Throwable $e) {
-            return response($e->getMessage());
-        }
+            $token = Crypt::encryptString($user->email);
+            Http::post('http://127.0.0.1:8001/auth-logout', [
+                'token' => $token,
+            ]);
+        } catch (\Throwable $e) {}
 
         return redirect('/');
     }

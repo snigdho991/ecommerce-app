@@ -16,7 +16,7 @@ Laravel Breeze
 ## Installation
 
 1. Clone the Repository
-git clone https://github.com/your-username/ecommerce-app.git
+git clone https://github.com/snigdho991/ecommerce-app.git
 cd ecommerce-app
 
 2. Install Dependencies
